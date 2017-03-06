@@ -1,2 +1,2 @@
-# adscarrom
+# ADS Carrom
 Final Project
