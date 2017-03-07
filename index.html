@@ -1,351 +1,580 @@
-<!DOCTYPE html>
-	<html lang="en-us">
-		<head>
-			<script src="https://rawgit.com/susw12/adscarrom/master/two.js"></script>
-			<link rel="stylesheet" type="text/css" href="https://rawgit.com/susw12/adscarrom/master/StyleSheet.css">
-			<meta charset="utf-8">
-			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-			<link rel="shortcut icon" href="https://cdn.rawgit.com/susw12/adscarrom/d056501a/noun_264687_cc_1_%20(1).ico" />
-			<script src="https://rawgit.com/susw12/adscarrom/master/game.js"></script>
-			<title>ADS Carrom! The World's Premier Site for Playing Carrom Online!</title>
-		</head>
-		<body class = "template">
 
-			<ul class="tab" style = "display:none">
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Home');" id="defaultOpen">Home</a></li>
+<html>
+<head>
+<title>ADS Carrom! The World's Premier Site for Playing Carrom Online!</title>
+</head>
+<body>
+<style>
+body {
+  background: darkgray;
+}
 
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Manual');">Manual</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Sign Up');">Sign Up</a></li>
-			  	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Lobby');">Lobby</a></li>
-			 	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Game'); run();">Game</a></li>
-				<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Profile');">Profile</a></li>
-			</ul>
-				
-			<div id="Home" class="tabcontent">
-				<h2>Home</h2>
-				<h3>Hi There! We're not done yet!</h3>
-                
-				<p>
-				Random stuff 4 u to read<br>
-				What's that thing that makes me tick?<br>
-				Modular arithmetic<br>
-				Furthermore, what is adored?<br>
-				Hexadecimals galore<br>
-				Lots of axioms are implied, like<br>
-				I love e to the pi i<br>
-				With theta and oblate spheroids<br>
-				MathCounts® is always adored<br><br>
-					
-				Don't go breaking my cooooode<br>
-				Don't go breaking my cooooode<br>
-				I couldn't if I tried<br>
-				Don't go breaking my cooooode<br>
-				Cuz I'm working on a different file<br>
-				</p>
-				<button onclick="openCity(event, 'Sign Up');" style="width:auto;">Login</button>
-				<button onclick="openCity(event, 'Manual');" style="width:auto;">Manual</button>
-				
-				<!--<div style="overflow:hidden;height:270px;width:480px;max-width:100%;max-height:100%;"><div id="youtube_canvas" style="height:100%;width:100%;max-width:100%"><iframe style="height:100%;width:100%;max-width:100%;border:0;" frameborder="0" src="https://www.youtube.com/embed/q6EoRBvdVPQ?hl=en&amp;autoplay=0&amp;cc_load_policy=0&amp;loop=0&amp;iv_load_policy=1&amp;fs=1&amp;showinfo=1"><a class="youtube-embed-code" href="https://changing.hosting" id="get-youtube-data">hosting reviews</a></iframe></div><style>#youtube_canvas img{max-width:none!important;background:none!important}</style></div>
-				-->
-			</div>
+.page-break {
+  width: 100%;
+  height: 25px;
+  background: #000000;
+}
 
-			<div id="Manual" class="tabcontent">
-			
-			<button type="button" onclick="openCity(event, 'Home');" class="cancelbtn">Back</button>
-			<br>
-				<h2>Manual</h2>
-				<pre>
-			<h3>System Requirements</h3>
-			You will need to have Chrome 4.0+, IE 9+, Microsoft Edge, Firefox 2.0+, Safari 3.1+, or Opera 9.0+. If not, please proceed to <a href="http://www.chrome.google.com">Chrome</a>
-			and install the most recent stable version for your operating system. Your firewall can't block port 8000 unless you want to play offline 
-			(you can still log in though)
+login-padding {
+  padding-top: 40px;
+}
 
-			<h3>Installation Instructions</h3>
-			You do not need to install anything- just create an account (this website will block IP's that try to crash the server)
-            
-            <h3>How to Play and Game Modes</h3>
-            
-            To play, you must sign in, create an account (and confirm your e-mail), or continue as a guest. Next you must proceed to the lobby (found in the dropdown menu) and find a game to 
-			join. You may create your own (press the button, you can create a private game with the one that says "public"), join another by clicking on the game, or play an offline game with 
-			another player. To lanuch the striker, drag it in the direction opposite from the one you want to hit it and drag it farther to increase force. The rules of the actual game are listed below.
-            
-            <h2> Rules </h2>
-			Players take turns to play.  A turn consists of one or more strikes. A player wins by pocketing all of the pieces of their chosen colour first. 
-			However, neither player can win until one or other player has "covered the Queen".  
-			To cover the Queen, a player must pocket one of her own pieces immediately after pocketing the Queen.  
-			If the Queen is pocketed but not covered, the Queen is returned to the board.  
-			Both players normally try to cover the Queen in addition to trying to win the game because a player who wins and also covers the Queen receives bonus points.
+p {
+  font-family: "Helvetica;"
+}
 
-			<h3>Striking</h3>
+button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
 
-			For each strike, the player must position the striker within the baseline OR on one of the two circles at either end of the baseline.
-			A striker within the baseline must touch both the front line and the rear line.
-			The striker may not "cut the moon" - be placed partially within the baseline and partially within the circle. 
-			The player must flick the striker with one finger so that it crosses the front baseline - it is not permitted to flick backwards or horizontally. 
-			A piece that is on or behind the front baseline must not be struck by the striker until the striker has crossed the front baseline.
-			In striking, the player's hand or arm must not cross the diagonal foul lines at either end of the baseline.
-			Basic rules
+.login {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  height: 72px;
+  width: 120px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  vertical-align: baseline;
+  font-size: 15pt;
+}
 
-			For the very first turn, the player is allowed three attempts to "break" i.e. disturb the central group of counters.
-			It doesn't matter which piece the striker hits first and it doesn't matter if the striker hits no pieces.
-			If a the striker pockets the Queen and/or one or more pieces of her own colour, the player retrieves the striker and takes another strike.
-			If the player pockets no pieces or commits a foul, the turn finishes.
-			Covering the Queen
+.signup {
+  background-color: #ff9933;
+  color: white;
+  height: 72px;
+  width: 120px;
+  vertical-align: baseline;
+  font-size: 15pt;
+}
 
-			A player may only pocket and cover the Queen if that player has already pocketed at least one piece of that player's colour.
-			Should a player pocket the Queen before being permitted to cover it, the turn continues but the Queen is returned to the centre at the end of the turn.
-			If a player pockets the Queen and one of her own pieces in the same turn, this counts and that player has covered the Queen.  
-			Such a player must have already pocketed at least one piece in order to cover the Queen as per normal.
-			When a player pockets the Queen but does not cover it, the Queen is returned as near as possible to the centre circle by the opponent.
+.guest {
+  color: #0086b3;
+  text-decoration: underline;
+}
+/* header at top of lobby- control center */
+.concen {
+	text-align: center;
+	display: inline-block;
+	padding: 10px 5px;
+	height: 25px;
+	font-size: 20px;
+	outline-width: 5px black;
+	outline-style: solid;
+}
 
-			<h3>Other Rules</h3>
+.lobbybox {
+	background-color:gray;
+	display:block;
+	width:750px;
+	border-radius:50px;
+	border: 2px solid black;
+	align:center;
+	margin:auto;
+}
 
-			Pieces returned to the centre can be placed on top of other pieces within the main circle.
-			If pieces come to rest standing on their edge or overlapping another piece, they are left as they are until moved again in the normal course of play. 
-			If the striker comes to rest under another piece, the striker should be removed with as little disturbance to the covering piece as possible.
+.gamebox {
+	overflow-y:auto;
+	align: center
 
-			<h3>Scoring</h3>
+}
 
-			At the end of the game the winner scores 1 point for each opponent's piece left on the board.
-			If the winner has less than 24 points and the winner also covered the Queen, a bonus 5 points are scored.
-			If the winner has 24 or more points, then no points are scored for covering the Queen.
 
-			The maximum score for one game is therefore 14 points.  A match is played to 29 points.
-            
-            
-            
-            <h3>Troubleshooting</h3>
-            If you cannot connect, make sure your firewall is not blocking port 8000 and you have one of the listed versions of internet.
-            If this does not work, try refreshing your page or contacting us.
-            
-            <h3>Credits</h3>
-            
-            Daniel Monroe (danielmonroe0606@gmail.com)
-            Sujay Swain (sujaymswain@gmail.com)
-            Aaron Mei (meiaaron99@gmail.com)
-            <h4>Thanks to</h4>
-            <a href="http://www.w3schools.com/">W3 Schools</a>
-            Clarence Lam
+.topright {
+ float: right;
+ cursor: pointer;
+ font-size: 20px;
+}
+.topright:hover {color: red;}
+			/* Full-width input fields */
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+	
+/* Extra styles for the cancel button */
+.cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #f44336;
+}
+.container {
+	padding: 16px;
+}
+span.psw {
+	float: right;
+	padding-top: 16px;
+}
 
-			<h6><a href="https://thenounproject.com/search/?q=carrom+board&i=264687">Carrom board icon</a> designed by <a href="https://thenounproject.com/Chamedesign/">Chameleon Design</a> from The Noun Project</h6>
-            
-            
-            </pre>
-			</div>
+.errmssg {
+	color: rgb(255,0,0);
+	display: none;
+
+
+}
+
+.miniscreen {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed 
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+
+}
+
+.miniscreen-content {
+	background-color: gray;
+	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid;
+	border-radius: 20px;
+	width: 400px; /* Could be more or less, depending on screen size */
+	height: 500px;
+	padding: 20px;
+
+
+}
+
+
+.mainbox {
+	background-color: rgb(200,200,200);
+	display: block;
+	width: 350px;
+	height: 400px;
+	border: 1px solid;
+	border-radius: 18px;
+	
+
+}
+
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed 
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	padding-top: 60px;
+}
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 500px; /* Could be more or less, depending on screen size */
+}
+/* The Close Button (x) */
+.close {
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: bold;
+}
+.close:hover,
+.close:focus {
+	color: red;
+	cursor: pointer;
+}
+/* Add Zoom Animation */
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+@-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)} 
+	to {-webkit-transform: scale(1)}
+}
+	
+@keyframes animatezoom {
+	from {transform: scale(0)} 
+	to {transform: scale(1)}
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+	span.psw {
+	display: block;
+	float: none;
+	}
+	.cancelbtn {
+	width: 100%;
+	}
+}
+</style>
+
+
+<p></p>
+<br>
+<div id="page-break" class="page-break"></div>
+<table border ="0" width = "100%" height = "100%" style = "font-size: 18pt">
+
+<th colspan = "4">
+<center><p style="font-size:42pt">Carrom - Fun, Addicting, Engrossing</p></center>
+</th>
+
+<tr>
+<td width = "15%">
+<td valign = "top" rowspan = "2" width = "15%">
+
+<b><p style = "font-size: 25pt">Recent updates:</p></b>
+
+<a>3/4/2017:</a>
+<br>
+<br>
+<a>-New Homepage look</a>
+<br>
+<a>-Game will be finished by 3/14/2017</a>
+
+</td>
+<td width = "40%">
+<center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/-Insert_image_here-.svg/300px--Insert_image_here-.svg.png" style="width:400px; height:300px"></img></center>
+</td>
+<td width = "30%" valign = "top" rowspan = "2">
+<a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a><img src = "ad_banner.png" style = "width: 215px; height: 450px">
+</td>
+</tr>
+
+<tr valign = "top" height = "320px">
+<td>
+</td>
+<td>
+
+<!--<div id="login" class="login-padding"><button id="signup" class="signup">Sign-up</button>-->
+
+<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button></center>
+<div id="sudiv" name ="sudiv" class="modal">
+<form id="suform" name = "suform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
+
+	<div class="container">
+	
+	<label><b>Email</b></label>
+	<input type="text" placeholder="Enter E-mail" name="email">
+	<div class = "errmssg" id = "suemailinvalid">•Invalid e-mail adress</div>
+	<div class = "errmssg" id = "suemailtaken">•E-mail already in use</div>
+	
+	<label><b>Username</b></label>
+	<input type="text" placeholder="Enter Username" name="uname">
+	
+	<div class = "errmssg" id = "suunamelen">•Invalid length- must be length [5,20]</div>
+	<div class = "errmssg" id = "suunamechar">•Invalid char- must only be numbers and letters (not to be confused with numbersandnumbers, daniel zhu's aops profile</div>
+	<div class = "errmssg" id = "suunametaken">•Username already taken</div>
+	
+	<label><b>Password</b></label>
+	<input type="password" placeholder="Enter Password" name="psw">
+	
+	<div class = "errmssg" id = "supswlen">•Invalid length- must be length [6,30]</div>
+	<div class = "errmssg" id = "supswchar">•Invalid char- must only be numbers and letters and special chars</div>
+	
+	<label><b>Reenter Password</b></label>
+	<input type="password" placeholder="Renter Password" name="repsw">
+	<div class = "errmssg" id = "surepswmatch">•Passwords must match</div>
 		
-			<div id="Sign Up" class="tabcontent">
-				
-				
-				
-				<button type="button" onclick="openCity(event, 'Home');" class="cancelbtn">Back</button>
-				<br>
-				
-				
-				
-				<!-- LOG IN FORM -->
-				<button onclick="document.getElementById('lidiv').style.display='block';" style="width:auto;">Login</button>
-				<div id="lidiv" name = "lidiv" class="modal">
-				<form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
+	<button type="submit" onclick='return checkSignUp();'>Sign Up</button>
+	<input type="checkbox" checked="checked"> Remember me
+	</div>
 
-					<div class="container">
-					<label><b>Username</b></label>
-					<input type="text" placeholder="Enter Username" name="liuname" id="loginuser">
+	<div class="container" style="background-color:#f1f1f1">
+	<button type="button" onclick="document.getElementById('sudiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
+	</div>
+</form>
+</div>
+<center><button class="login" onclick="document.getElementById('lidiv').style.display='block';" style="width:auto;">Login</button></center>
+<div id="lidiv" name = "lidiv" class="modal">
+<form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
 
-					<label><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="lipsw" id="loginpswd">
-					
-					<div class = "errmssg" id = "lipswinc">•Incorrect password</div>
-					
-					<button type="submit" onclick = 'return checkLogIn();'>Login</button>
-					<input type="checkbox" checked="checked"> Remember me
-					</div>
+	<div class="container">
+	<label><b>Username</b></label>
+	<input type="text" placeholder="Enter Username" name="liuname" id="loginuser">
 
-					<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('lidiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-					<span class="psw">Forgot <a href="#">password?</a></span>
-					</div>
-				</form>
-				</div>
-				<br>
-				
-				
-				<!-- SIGN UP FORM -->
-				<button onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button>
-				<div id="sudiv" name ="sudiv" class="modal">
-				<form id="suform" name = "suform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
+	<label><b>Password</b></label>
+	<input type="password" placeholder="Enter Password" name="lipsw" id="loginpswd">
+	
+	<div class = "errmssg" id = "lipswinc">•Incorrect password</div>
+	
+	<button type="submit" onclick = 'return checkLogIn();'>Login</button>
+	<input type="checkbox" checked="checked"> Remember me
+	</div>
 
-					<div class="container">
-					
-					<label><b>Email</b></label>
-					<input type="text" placeholder="Enter E-mail" name="email">
-					<div class = "errmssg" id = "suemailinvalid">•Invalid e-mail adress</div>
-					<div class = "errmssg" id = "suemailtaken">•E-mail already in use</div>
-					
-					<label><b>Username</b></label>
-					<input type="text" placeholder="Enter Username" name="uname">
-					
-					<div class = "errmssg" id = "suunamelen">•Invalid length- must be length [5,20]</div>
-					<div class = "errmssg" id = "suunamechar">•Invalid char- must only be numbers and letters (not to be confused with numbersandnumbers, daniel zhu's aops profile</div>
-					<div class = "errmssg" id = "suunametaken">•Username already taken</div>
-					
-					<label><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="psw">
-					
-					<div class = "errmssg" id = "supswlen">•Invalid length- must be length [6,30]</div>
-					<div class = "errmssg" id = "supswchar">•Invalid char- must only be numbers and letters and special chars</div>
-					
-					<label><b>Reenter Password</b></label>
-					<input type="password" placeholder="Renter Password" name="repsw">
-					<div class = "errmssg" id = "surepswmatch">•Passwords must match</div>
-						
-					<button type="submit" onclick='return checkSignUp();'>Sign Up</button>
-					<input type="checkbox" checked="checked"> Remember me
-					</div>
+	<div class="container" style="background-color:#f1f1f1">
+	<button type="button" onclick="document.getElementById('lidiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
+	<span class="psw">Forgot <a href="#">password?</a></span>
+	</div>
+</form>
+</div>
 
-					<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('sudiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-					</div>
-				</form>
-				</div>
-			</div>
+<!--<button id="login">Log in!</button></div>-->
+<br>
+<br>
+<center><a href="http://google.com">Continue as guest >>> </a></center>
+</td>
 
-			<div id="Lobby" class="tabcontent">
-				<div id = "concen" align = "center">
-					<div class="concen" style="background-color:gray; width:150px">Menu</div>
-					<div class="concen" style="background-color:orange; width:150px">*Username</div>
-					<div class="concen" style="background-color:gray; width:400px">ADS Carrom</div>
-					<div class="concen" style="background-color:lime; width:75px">*Wins</div>
-					<div class="concen" style="background-color:red; width:75px">*Losses</div>
-					<div class="concen" style="background-color:yellow; width:150px">*Rating</div>
-				</div>
-				
-				<br></br>
-				
-				<div id = "*changethis*" class = "lobbybox" align="center">
-					<button id ="offline" name="offline" style="color:black; width:200px; height:50px; border-radius:10px; border: 2px solid black;">Offline Game</button>
-					<button id ="create" name="create" style="color:black; width:200px; height:50px; border-radius:10px; background:blue; border: 2px solid black;">Create Public</button>
-				
-				
-				</div>
-				
-				<button onclick="document.getElementById('jgdiv').style.display='block';" style="width:auto;display:block;">Join Game</button>
-				
-				
-				<div id="jgdiv" name = "jgdiv" class="miniscreen">
-				
-					<div class="miniscreen-content animate" align="center">
-						
-						<div class="mainbox">
-						
-							<table style="height:100%; text-align:center; font-size:30px;">
-							<tr><td>*Username<br>Rating<br><font color="green">Wins</font> <font color="red">Losses</font></td></tr>
-							
-							<tr><td><font size="100px">☠__VS.__☠</font></td></tr> <!--skulls just cuz-->
-							
-							<tr><td>*Username<br>Rating<br><font color="green">Wins</font> <font color="red">Losses</font></td></tr>
-							
-							
-							</table>
+</tr>
 
-						</div>
-						
-						<div style="display:block">
-						<button type="button" onclick="document.getElementById('jgdiv').style.display='none';" class="cancelbtn" style = "border-radius:5px;">Cancel</button>
-						<button type="button" style = "border-radius:5px; background-color:blue; padding: 10px 18px; width:120px;">Join Game</button>
-						</div>
-					</div>
-				</div>
-				
-				
-			</div>
-			<div id="Game" class="tabcontent">
-				<div id = 'gamediv' style = "background: url('boardpic.jpg'); background-size:cover;">
-				<!-- two.js will go here -->
+<tr>
+<td colspan = "4">
+<center>&copy; 2050 ADS Carrom | Site Map | Help</center>
+</td>
+</tr>
 
-				</div>
-			</div>
-			<div id="Profile" class="tabcontent">
+
+</table>
+
+<script>
+function clearErrs() {
+	var errs = document.getElementsByClassName("errmssg");
+	for (err in errs) {
+		errs[err].style.display = 'none';
+		
+	}	
+}
+
+function checkEmail(email) {
+ 	var emailre = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ 	var errors = [];
+ 	if (! emailre.test(email)) {
+ 		errors.push('emailinvalid');
+	}
+ 
+	return errors;
+}
+
+function checkPsw(psw) {
+	var pswre = /^[a-zA-Z0-9!@#$%^&*()+=_-]+$/;
+	var errors = [];
+	if (psw.length > 30 || psw.length < 6) {
+ 	errors.push('pswlen');
+ 	}
+	if ((! pswre.test(psw)) && (psw.length > 0)) {
+		errors.push('pswchar');
+	}
+ 
+	return errors;
+
+
+}
+
+function checkUname(uname) {
+	var unamere = /^[a-zA-Z0-9]+$/;
+	var errors = [];
+	if (uname.length > 20 || uname.length < 5) {
+ 	errors.push('unamelen');
+ }
+ 
+ 
+ 	if ((! unamere.test(uname)) && (uname.length > 0)) {
+ 		errors.push('unamechar');
+	}
+ 
+ 	return errors;
+}
+
+
+function checkSignUp() {
+	var errors = [];
+	var allErrors = ['unamelen', 'unamechar', 'pswlen', 'pswchar', 'repswmatch', 'emailinvalid', 'emailtaken', 'unametaken'];
+	var email = document.suform.email.value;
+	var uname = document.suform.uname.value;
+	var psw = document.suform.psw.value;
+	var repsw = document.suform.repsw.value;
+ 
+	errors = errors.concat(checkUname(uname));
+	errors = errors.concat(checkPsw(psw));
+	errors = errors.concat(checkEmail(email));
+ 
+ 
+ 
+ 	/* repsw test */
+	if (psw != repsw) {
+ 		errors.push('repswmatch');
+ 	}
+ 
+ /* show and hide */
+	for (var count in allErrors) {
+ 		document.getElementById('su' + allErrors[count]).style.display = 'none';
+	}
+	
+	for (count in errors) {
+ 	document.getElementById('su' + errors[count]).style.display = 'block';
+	}
+ 
+ /* cancel if errors */
+	if (errors.length > 0) {
+ 		return false;
+	}
+	
+	return true;
+}
+
+function checkLogIn() {
+	var errors = [];
+	var allErrors = ['pswinc'];
+	var uname = document.liform.uname.value;
+	var psw = document.liform.psw.value;
+ 
+ /* show and hide */
+	for (var count in allErrors) {
+ 		document.getElementById('li' + allErrors[count]).style.display = 'none';
+ 	}
+	for (count in errors) {
+ 		document.getElementById('li' + errors[count]).style.display = 'block';
+	}
+ 
+ 	/*if combo is right return true*/
+	if (errors.length > 0) {
+		return false;
+ 	}
+ 
+	return true;
+ 	/*if combo is right return true*/
+}	
+
+function checkChangeEmail() {
+ 
+	var errors = [];
+	var allErrors = ['pswinc', 'emailinvalid'];
+	var email = document.ceform.email.value;
+	var psw = document.ceform.psw.value;
+ 
+	errors = errors.concat(checkEmail(email));
+ 
+	 /* show and hide */
+	for (var count in allErrors) {
+ 		document.getElementById('ce' + allErrors[count]).style.display = 'none';
+	}
+ 	for (count in errors) {
+ 	
+ 		document.getElementById('ce' + errors[count]).style.display = 'block';
+ 	}
+ 
+	/*if combo is right return true*/
+	if (errors.length > 0) {
+ 		return false;
+	}
+ 
+	return true;
+}
+
+function checkChangePsw() {
+ 
+	var errors = [];
+	var allErrors = ['opswinc', 'pswchar', 'pswlen', 'repswmatch'];
+	var opsw = document.cpform.opsw.value;
+	var psw = document.cpform.psw.value;
+	var repsw = document.cpform.repsw.value;
+ 
+	errors = errors.concat(checkPsw(psw));
+ 
+	/* repsw test */
+	if (psw != repsw) {
+ 		errors.push('repswmatch');
+	}
+ 
+ /* show and hide */
+	for (var count in allErrors) {
+ 		document.getElementById('cp' + allErrors[count]).style.display = 'none';
+	}
+ 
+	for (count in errors) {
+ 		document.getElementById('cp' + errors[count]).style.display = 'block';
+ 	}
+ 
+ /*if combo is right return true*/
+	if (errors.length > 0) {
+ 		return false;
+	}
+ 
+ 
+return true;
+
+}
+
+
+//--------------------------------------------------------------
+
+var SZ, elem, two, circle, rect, group, game;
+
+
+
+class Game {
+	constructor () {
+		SZ = 500;
+		elem = document.getElementById('gamediv');
+		
+		elem.innerHTML = "";
+		two = new Two({ width: this.SZ, height: this.SZ });
+		two.appendTo(elem);
+		circle = two.makeCircle(-70, 0, 50);
+		rect = two.makeRectangle(70, 0, 100, 100);
+		circle.fill = '#FF8000';
+		rect.fill = 'rgba(0, 200, 255, 0.75)';
+		group = two.makeGroup(circle, rect);
+		group.translation.set(SZ / 2, SZ / 2);
+		group.scale = 0;
+		group.noStroke();
+		
+	}
+	
+	run () {
+		two.bind('update', function(frameCount) {
+			console.log()
 			
-				<!-- CHANGE E-MAIL FORM -->
-				<button onclick="document.getElementById('cediv').style.display='block';" style="width:auto;">Change E-mail</button>
-				
-				
-				<div id="cediv" name = "cediv" class="modal">
-				
-				<form id="ceform" name = "ceform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
-
-					<div class="container">
-					<label><b>New E-mail</b></label>
-					<input type="text" placeholder="Enter New E-mail" name="email">
-					<div class = "errmssg" id = "ceemailinvalid">•Invalid e-mail adress</div>
-					
-
-					<label><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="psw">
-					<div class = "errmssg" id = "cepswinc">•Incorrect password</div>
-
-					
-					<button type="submit" onclick='return checkChangeEmail();'>Change E-mail</button>
-					</div>
-
-					<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('cediv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-					</div>
-				</form>
-				</div>
-				
-				<!-- CHANGE PASSWORD FORM -->
-				<button onclick="document.getElementById('cpdiv').style.display='block';" style="width:auto;">Change Password</button>
-				
-				
-				<div id="cpdiv" name = "cpdiv" class="modal">
-				
-				<form id="cpform" name = "cpform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
-
-					<div class="container">
-					
-
-					<label><b>Old Password</b></label>
-					<input type="password" placeholder="Enter Old Password" name="opsw">
-					<div class = "errmssg" id = "cpopswinc">•Incorrect password</div>
-
-					<label><b>Password</b></label>
-					<input type="password" placeholder="Enter New Password" name="psw">
-					
-					<div class = "errmssg" id = "cppswlen">•Invalid length- must be length [6,30]</div>
-					<div class = "errmssg" id = "cppswchar">•Invalid char- must only be numbers and letters and special chars</div>
-					
-					<label><b>Reenter Password</b></label>
-					<input type="password" placeholder="Reenter New Password" name="repsw">
-					<div class = "errmssg" id = "cprepswmatch">•Passwords must match</div>
-					
-					
-					
-					<button type="submit" onclick='return checkChangePsw(); clearErrs();'>Change Password</button>
-					</div>
-
-					<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('cpdiv').style.display='none';" class="cancelbtn">Cancel</button>
-					</div>
-				</form>
-				</div>
-				
-			</div>
-			<script type='text/javascript'>
-			function openCity(evt, cityName) {
-				var i, tabcontent, tablinks;
-				tabcontent = document.getElementsByClassName("tabcontent");
-				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = "none";
-				}
-				tablinks = document.getElementsByClassName("tablinks");
-				
-				document.getElementById(cityName).style.display = "block";
-				
+			
+			// This code is called everytime two.update() is called.
+			// Effectively 60 times per second.
+			if (group.scale > 0.9999) {
+				group.scale = group.rotation = 0;
 			}
-			// Get the element with id="defaultOpen" and click on it
-			document.getElementById("defaultOpen").click();	
-			</script>
-			
-		</body>
-	</html>
+			var t = (1 - group.scale) * 0.125;
+			group.scale += t;
+			group.rotation += t * 4 * Math.PI;
+		}).play();
+		
+	}
+	
+	tick () {
+		
+		
+	}
+	
+	
+}
+
+
+
+function run() {
+	var game = new Game();
+	game.run();
+	
+	
+	
+}
+
+</script>
+
+
+</body>
+
+</html>
