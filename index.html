@@ -140,7 +140,18 @@
 
 
 </table>
-
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCRFvuU-y_qcjSVTIoxcYzI2FKRg5pmU20",
+    authDomain: "adscarrom-dd15b.firebaseapp.com",
+    databaseURL: "https://adscarrom-dd15b.firebaseio.com",
+    storageBucket: "adscarrom-dd15b.appspot.com",
+    messagingSenderId: "496358271034"
+  };
+  firebase.initializeApp(config);
+</script>
 <script>
 function clearErrs() {
 	var errs = document.getElementsByClassName("errmssg");
