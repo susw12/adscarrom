@@ -1,7 +1,8 @@
-def datebase = firebase.database();
-function writeUserData(email, userId, password) {
-  firebase.database().ref('loginInfo/' + userId).set({
-      password: password,
-      email: email
+//def database = firebase.database();
+function writeUserData(email, uname, psw) {
+  firebase.database().ref('loginInfo/' + uname).set({
+      password: psw,
+      email: email,
+      points: ''
   });
 }

@@ -58,14 +58,7 @@ function checkSignUp() {
 	errors = errors.concat(checkUname(uname));
 	errors = errors.concat(checkPsw(psw));
 	errors = errors.concat(checkEmail(email));
- 
- 
- 
- 	/* repsw test */
-	if (psw != repsw) {
- 		errors.push('repswmatch');
- 	}
- 
+  
  /* show and hide */
 	for (var count in allErrors) {
  		document.getElementById('su' + allErrors[count]).style.display = 'none';
@@ -79,9 +72,11 @@ function checkSignUp() {
 	if (errors.length > 0) {
  		return false;
 	}
-	
-	return true;
+	else {
+		writeUserData(email, uname, psw);
+	}
 }
+
 
 function checkLogIn() {
 	var errors = [];
@@ -164,6 +159,15 @@ function checkChangePsw() {
  
 return true;
 
+}
+
+//def database = firebase.database();
+function writeUserData(email, userID, passw) {
+  firebase.database().ref('loginInfo/' + userID).set({
+      password: passw,
+      email: email,
+      points: ''
+  });
 }
 
 
