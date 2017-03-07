@@ -1,4 +1,4 @@
-def loginInfo = firebase.database();
+def datebase = firebase.database();
 function writeUserData(email, userId, password) {
   firebase.database().ref('loginInfo/' + userId).set({
       password: password,
