@@ -78,7 +78,7 @@ function checkSignUp() {
  		return false;
 	}
 	else {
-		signUp(email, uname, psw);
+		signUp(email, password);
 	}
 }
 
