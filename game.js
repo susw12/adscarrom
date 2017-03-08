@@ -73,7 +73,7 @@ function checkSignUp() {
  		return false;
 	}
 	else {
-		writeUserData(email, uname, psw);
+		signUp(email, uname, psw);
 	}
 }
 
@@ -162,7 +162,7 @@ return true;
 }
 
 //def database = firebase.database();
-function writeUserData(email, userID, passw) {
+function signUp(email, userID, passw) {
   firebase.database().ref('loginInfo/' + userID).set({
       password: passw,
       email: email,
