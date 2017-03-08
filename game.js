@@ -1,3 +1,12 @@
+//def database = firebase.database();
+function signUp(email, userID, passw) {
+  firebase.database().ref('loginInfo/' + userID).set({
+      password: passw,
+      email: email,
+      points: ''
+  });
+}
+
 function clearErrs() {
 	var errs = document.getElementsByClassName("errmssg");
 	for (err in errs) {
@@ -160,16 +169,6 @@ function checkChangePsw() {
 return true;
 
 }
-
-//def database = firebase.database();
-function signUp(email, userID, passw) {
-  firebase.database().ref('loginInfo/' + userID).set({
-      password: passw,
-      email: email,
-      points: ''
-  });
-}
-
 
 //--------------------------------------------------------------
 
