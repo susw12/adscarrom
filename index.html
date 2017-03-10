@@ -46,7 +46,7 @@
 <td>
 </td>
 <td>
-<button type="button" onclick="return popup("game.html","game")">PLAY NOW!</button>
+<button type="button" onclick="return newPopup("game.html")">PLAY NOW!</button>
 <!--<div id="login" class="login-padding"><button id="signup" class="signup">Sign-up</button>-->
 
 <!--<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button></center>
@@ -86,7 +86,11 @@
 	</div>
 </form>
 </div>
-<center><button class="login" onclick="document.getElementById('lidiv').style.display='block';" style="width:auto;">Login</button></center>
+<center><button class="login" onclick="document.getElementById('lidiv').style.difunction newPopup(url) {
+	popupWindow = window.open(
+		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+}
+</script>splay='block';" style="width:auto;">Login</button></center>
 <div id="lidiv" name = "lidiv" class="modal">
 <form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
 
@@ -166,16 +170,12 @@ function successFunction(data) {
   $('body').append(table);
 }
 </script>-->
-<SCRIPT TYPE="text/javascript">
-  function popup(mylink, windowname) { 
-    if (! window.focus)return true;
-    var href;
-    if (typeof(mylink) == 'string') href=mylink;
-    else href=mylink.href; 
-    window.open(href, windowname, 'width=400,height=200,scrollbars=yes'); 
-    return false; 
-  }
-</SCRIPT>
+<script>
+function newPopup(url) {
+	popupWindow = window.open(
+		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no')
+}
+</script>
 </body>
 
 </html>
