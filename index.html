@@ -46,7 +46,7 @@
 <td>
 </td>
 <td>
-
+<button type="button" placeholder="PLAY NOW!" onclick="return ">
 <!--<div id="login" class="login-padding"><button id="signup" class="signup">Sign-up</button>-->
 
 <!--<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button></center>
@@ -125,7 +125,7 @@
 
 
 </table>
-<script>
+<!--<script>
 $.ajax({
   url: 'csv_data.csv',
   dataType: 'text',
@@ -165,7 +165,17 @@ function successFunction(data) {
   table += '</table>';
   $('body').append(table);
 }
-</script>
+</script>-->
+<SCRIPT TYPE="text/javascript">
+  function popup(mylink, windowname) { 
+    if (! window.focus)return true;
+    var href;
+    if (typeof(mylink) == 'string') href=mylink;
+    else href=mylink.href; 
+    window.open(href, windowname, 'width=400,height=200,scrollbars=yes'); 
+    return false; 
+  }
+</SCRIPT>
 </body>
 
 </html>
