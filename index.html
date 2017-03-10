@@ -8,8 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="shortcut icon" href="icon.ico">
 <script src="https://rawgit.com/susw12/adscarrom/master/game.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-<script src="login.js"></script>
 </head>
 <body>
 
@@ -51,7 +49,7 @@
 
 <!--<div id="login" class="login-padding"><button id="signup" class="signup">Sign-up</button>-->
 
-<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button></center>
+<!--<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';" style="width:auto;">Sign Up</button></center>
 <div id="sudiv" name ="sudiv" class="modal">
 <form id="suform" name = "suform" class="modal-content animate">
 
@@ -113,13 +111,12 @@
 </div>
 
 <!--<button id="login">Log in!</button></div>-->
-<br>
+<!--<br>
 <br>
 <center><a href="http://google.com">Continue as guest >>> </a></center>
 </td>
-
+-->
 </tr>
-
 <tr>
 <td colspan = "4">
 <center>&copy; 2016-2017 ADS Carrom | Site Map | <a href="help.html">Help</a></center>
@@ -128,18 +125,46 @@
 
 
 </table>
-
-<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDAeL-x1LNqTIkBbDjO-YQ36dbOwHcHj4E",
-    authDomain: "adscarrom-daniel-sujay-aaron.firebaseapp.com",
-    databaseURL: "https://adscarrom-daniel-sujay-aaron.firebaseio.com",
-    storageBucket: "adscarrom-daniel-sujay-aaron.appspot.com",
-    messagingSenderId: "1098974698491"
-  };
-  firebase.initializeApp(config);
+$.ajax({
+  url: 'csv_data.csv',
+  dataType: 'text',
+}).done(successFunction);
+
+function successFunction(data) {
+  var allRows = data.split(/\r?\n|\r/);
+  var table = '<table>';
+  for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
+    if (singleRow === 0) {
+      table += '<thead>';
+      table += '<tr>';
+    } else {
+      table += '<tr>';
+    }
+    var rowCells = allRows[singleRow].split(',');
+    for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
+      if (singleRow === 0) {
+        table += '<th>';
+        table += rowCells[rowCell];
+        table += '</th>';
+      } else {
+        table += '<td>';
+        table += rowCells[rowCell];
+        table += '</td>';
+      }
+    }
+    if (singleRow === 0) {
+      table += '</tr>';
+      table += '</thead>';
+      table += '<tbody>';
+    } else {
+      table += '</tr>';
+    }
+  } 
+  table += '</tbody>';
+  table += '</table>';
+  $('body').append(table);
+}
 </script>
 </body>
 
