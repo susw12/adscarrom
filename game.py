@@ -31,7 +31,7 @@ def spawn_ball(space, position, direction):
     ball_body = pymunk.Body(1, pymunk.inf)
     ball_body.position = position
     
-    ball_shape = pymunk.Circle(ball_body,5)
+    ball_shape = pymunk.Circle(ball_body,10)
     ball_shape.color =  THECOLORS["green"]
     ball_shape.elasticity = 1.0
     ball_shape.collision_type = collision_types["coin"]
@@ -53,7 +53,7 @@ def main():
     ### PyGame init
     pygame.init()
     screen = pygame.display.set_mode((width,height))
-    pygame.image.load("boardpic.jpg")
+    pygame.image.load(os.path.join('boardpic.jpg'))
     clock = pygame.time.Clock()
     running = True
     font = pygame.font.SysFont("Arial", 16)
@@ -76,7 +76,7 @@ def main():
 
     
     ### Player ship
-    striker_body = pymunk.Body(500, pymunk.inf)
+    """striker_body = pymunk.Body(500, pymunk.inf)
     striker_body.position = 300,100
     
     striker_shape = pymunk.Circle(striker_body, 15)
@@ -84,31 +84,52 @@ def main():
     striker_shape.elasticity = 1.0
     striker_shape.collision_type = collision_types["striker"]
     
-    def pre_solve(arbiter, space, data):
-        # We want to update the collision normal to make the bounce direction 
-        # dependent of where on the paddle the ball hits. Note that this 
-        # calculation isn't perfect, but just a quick example.
-        set_ = arbiter.contact_point_set    
-        if len(set_.points) > 0:
-            striker_shape = arbiter.shapes[0]
-            width = (striker_shape.b - striker_shape.a).x
-            delta = (striker_shape.body.position - set_.points[0].point_a.x).x
-            normal = Vec2d(0, 1).rotated(delta / width / 2)
-            set_.normal = normal
-            set_.points[0].distance = 0
-        arbiter.contact_point_set = set_        
-        return True
-    h = space.add_collision_handler(
-        collision_types["striker"],
-        collision_types["coin"])
-    h.pre_solve = pre_solve
-    
     # restrict movement of player to a straigt line 
     move_joint = pymunk.GrooveJoint(space.static_body, striker_body, (100,100), (500,100), (0,0))
     space.add(striker_body, striker_shape, move_joint)
-    global state
+    global state"""
     # Start game
-    setup_level(space, striker_body)
+    setup_level(space)
+
+    my_particles = []
+
+    striker = pymunk.Circle((160,470), 15,50)
+    striker.color(THECOLORS["green"])
+    particle = pymunk.Circle((300,280), 10,5)
+    particle.color(THECOLORS["black"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((260,280), 10,5)
+    particle.color(THECOLORS["black"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((340,280), 10,5)
+    particle.color(THECOLORS["black"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((220,280), 10,5)
+    particle.color(THECOLORS["black"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((280,300), 10,5)
+    my_particles.append(particle)
+    particle = pymunk.Circle((280,260), 10,5)
+    particle.color(THECOLORS["black"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((280,280), 10,5)
+    particle.color(THECOLORS["orange"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((320,280), 10,5)
+    particle.color(THECOLORS["white"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((240,280), 10,5)
+    particle.color(THECOLORS["white"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((280,320), 10,5)
+    particle.color(THECOLORS["white"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((260,300), 10,5)
+    particle.color(THECOLORS["white"])
+    my_particles.append(particle)
+    particle = pymunk.Circle((280,240), 10,5)
+    particle.color(THECOLORS["white"])
+    my_particles.append(particle)
 
     while running:
         for event in pygame.event.get():
