@@ -1,10 +1,7 @@
 
-from __future__ import division
-from __future__ import absolute_import
 import pygame
 from math import pi, cos, sin, sqrt
 from random import randint, random
-from io import open
 
 
 class Vector2(object):
@@ -43,7 +40,7 @@ class Board(object):
         def __init__(self):
                 self.size = 500
                 self.discs = [Striker(Vector2((100, 100)), 1)]
-                f = open(u'setup.txt', u'r')
+                f = open('setup.txt', 'r')
                 todeg = pi / 180
                 for line in f:
                         data = line.split()
@@ -60,7 +57,7 @@ class Board(object):
 
 
                 self.surf = pygame.Surface((self.size, self.size))
-                self.image = pygame.image.load(u'board.jpg')
+                self.image = pygame.image.load('board.jpg')
                 self.image = pygame.transform.scale(self.image, (self.size, self.size))
 
         def draw(self):
@@ -188,12 +185,12 @@ class Game(object):
                 return cold
 		
 		
-class Client(object):
+class Client():
         def __init__(self):
                 self.size = ((800, 600))
                 pygame.init()
                 pygame.mixer.init()
-                self.holesound = pygame.mixer.Sound(u"yee.wav")
+                self.holesound = pygame.mixer.Sound("yee.wav")
                 self.game = Game()
                 self.screen = pygame.display.set_mode(self.size)
                 self.clock = pygame.time.Clock()
