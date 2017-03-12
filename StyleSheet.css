@@ -30,18 +30,18 @@ button {
   background-color: #4CAF50;
   color: white;
   height: 72px;
-  width: 100%
+  width: 120px;
   vertical-align: baseline;
-  font-size: 5pt;
+  font-size: 15pt;
 }
 
 .signup {
   background-color: #ff9933;
   color: white;
   height: 72px;
-  width: 100%;
+  width: 120px;
   vertical-align: baseline;
-  font-size: 5pt;
+  font-size: 15pt;
 }
 
 .guest {
