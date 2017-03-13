@@ -6,7 +6,7 @@ from math import pi, cos, sin, sqrt
 from random import randint, random
 from io import open
 
-pyjsdl.display.setup(run, images)
+pyjsdl.display.setup(run, ["boarg.jpg"])
 
 
 class Vector2(object):
