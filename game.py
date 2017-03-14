@@ -1,10 +1,12 @@
 
 from __future__ import division
 from __future__ import absolute_import
-import pygame
+import pyjsdl as pygame
 from math import pi, cos, sin, sqrt
 from random import randint, random
 from io import open
+
+pyjsdl.display.setup(run, ["boarg.jpg"])
 
 
 class Vector2(object):
@@ -245,9 +247,9 @@ class Client(object):
                 
                 pygame.display.update()
 			
-			
-client = Client()
-client.run()
+def run():
+    client = Client()
+    client.run()
 		
 	
 		
