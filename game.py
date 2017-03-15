@@ -1,13 +1,14 @@
-
-from __future__ import division
-from __future__ import absolute_import
-import pyjsdl as pygame
+import pygame
 from math import pi, cos, sin, sqrt
 from random import randint, random
-from io import open
 
-pyjsdl.display.setup(run, ["boarg.jpg"])
 
+def rotCenter(image, rect, angle):
+        """rotate an image while keeping its center"""
+        image.set_at((0, 0), (255, 255, 255, 255))
+        rot_image = pygame.transform.rotate(image, angle)
+        rot_rect = rot_image.get_rect(center=rect.center)
+        return rot_image,rot_rect
 
 class Vector2(object):
 
@@ -43,39 +44,59 @@ class Vector2(object):
 class Board(object):
 	
         def __init__(self):
-                self.size = 500
-                self.discs = [Striker(Vector2((100, 100)), 1)]
-                f = open(u'setup.txt', u'r')
+                self.size = 600
+                self.discs = [Striker(Vector2((100, 100)), 1, self.size)]
+                f = ['0 0 2',
+                 '1 30 0',
+                 '1 90 1',
+                 '1 150 0',
+                 '1 210 1',
+                 '1 270 0',
+                 '1 330 1',
+                 '1.73205080757 0 0',
+                 '1.73205080757 60 0',
+                 '1.73205080757 120 0',
+                 '1.73205080757 180 0',
+                 '1.73205080757 240 0',
+                 '1.73205080757 300 0',
+                 '2 30 1',
+                 '2 90 1',
+                 '2 150 1',
+                 '2 210 1',
+                 '2 270 1',
+                 '2 330 1']
+                 
                 todeg = pi / 180
                 for line in f:
                         data = line.split()
                         r = float(data[0])
                         theta = float(data[1]) * todeg
                         typ = int(data[2])
-                        scalar = r * 2 * 13 * 1.05
+                        scalar = int(r * 2 * 13 * 1.05) * self.size / 500
                         x = scalar * cos(theta) + self.size / 2
                         y  = scalar * sin(theta) + self.size / 2
                         pos = Vector2((x, y))
 
 
-                        self.discs.append(Disc(pos, typ))
+                        self.discs.append(Disc(pos, typ, self.size))
 
 
                 self.surf = pygame.Surface((self.size, self.size))
-                self.image = pygame.image.load(u'board.jpg')
+                self.image = pygame.image.load('board.jpg')
                 self.image = pygame.transform.scale(self.image, (self.size, self.size))
 
         def draw(self):
+                
                 self.surf.blit(self.image, (0, 0))
                 for disc in self.discs:
                         disc.draw(self.surf)
 
 class Disc(object):
-        def __init__(self, pos, typ):
+        def __init__(self, pos, typ, boardsz):
                 self.pos = pos
                 self.vel = Vector2((0, 0))
                 self.typ = typ
-                self.r = 13
+                self.r = int(13 / 500 * boardsz)
                 self.mass = 5
 		
         def draw(self, boardsurf):
@@ -87,32 +108,35 @@ class Disc(object):
                         col = (0, 0, 0)
                 pygame.draw.circle(boardsurf, col, (int(self.pos.x), int(self.pos.y)), self.r)
 
-        def getpcollide(self):
-                pr = 19
-                thisr = 13
-                for pos in ((45, 45), (45, 455), (455, 455), (455, 45)):
+        def getpcollide(self, boardsz):
+                pr = 19 / 500 * boardsz
+                pos1 = boardsz / 500 * 45
+                pos2 = boardsz - pos1
+                for pos in ((pos1, pos1), (pos1, pos2), (pos2, pos2), (pos2, pos1)):
                         px = pos[0]
                         py = pos[1]
 				
 				
                         dist = sqrt((self.pos.x - px) ** 2 + (self.pos.y - py) ** 2)
-                        if dist * .6 <=  abs(thisr - pr):
+                        if dist * .6 <=  abs(self.r - pr):
                                 return True
                 return False
 
-        def wcollide(self):
+        def wcollide(self, boardsz):
+                a = boardsz / 20
+                b = boardsz - a
                 ret = False
-                if self.pos.x - self.r < 25 and self.vel.x < 0:
+                if self.pos.x - self.r < a and self.vel.x < 0:
                         ret = True
                         self.vel.x = 0 - self.vel.x
-                if self.pos.x + self.r > 475 and self.vel.x > 0:
+                if self.pos.x + self.r > b and self.vel.x > 0:
                         self.vel.x = 0 - self.vel.x
                         ret = True
 
-                if self.pos.y - self.r < 25 and self.vel.y < 0:
+                if self.pos.y - self.r < a and self.vel.y < 0:
                         self.vel.y = 0 - self.vel.y
                         ret = True
-                if self.pos.y + self.r > 475 and self.vel.y > 0:
+                if self.pos.y + self.r > b and self.vel.y > 0:
                         self.vel.y = 0 - self.vel.y
                         ret = True
                 return ret
@@ -124,6 +148,7 @@ class Disc(object):
                 if dist < rsum:
                         #1 self 2 d
                         posdif = self.pos - d.pos
+                        unitposdif = posdif.scale(1 / posdif.mag())
                         veldif = self.vel - d.vel
                         magsquare = posdif.mag() ** 2 
                         msum = self.mass + d.mass
@@ -133,12 +158,10 @@ class Disc(object):
                         main1 = (posdif * veldif) / magsquare
                         main2 = (-posdif) * (-veldif) / magsquare
 
-                        self.vel = (self.vel - posdif.scale(m1 * main1)).scale(1.05)
-                        if self.vel.mag() < 3:
-                                self.vel = self.vel.scale(3/self.vel.mag())
-                        d.vel = (d.vel - (-posdif).scale(m2 * main1)).scale(1.05)
-                        if d.vel.mag() < 3:
-                                d.vel = d.vel.scale(3/self.vel.mag())
+                        self.vel = (self.vel - posdif.scale(m1 * main1)).scale(.95)
+                        self.vel = self.vel + unitposdif
+                        d.vel = (d.vel - (-posdif).scale(m2 * main1)).scale(.95)
+                        d.vel = d.vel - unitposdif
                         return True
                 return False
                 
@@ -152,14 +175,14 @@ class Disc(object):
                 self.vel.y = self.vel.y * .15 ** (1/60)
 
 class Striker(Disc):
-        def __init__(self, pos, typ):
+        def __init__(self, pos, typ, boardsz):
                 self.pos = pos
                 self.vel = Vector2((0, 0))
                 self.typ = typ
-                self.r = 17
+                self.r = int(17 /500 * boardsz)
                 self.mass = 15
         
-        def getpcollide(self):
+        def getpcollide(self, boardsz):
                 return False
                 
 
@@ -175,7 +198,7 @@ class Game(object):
 
                 count1 = 0
                 for disc in self.board.discs:
-                        if disc.wcollide():
+                        if disc.wcollide(self.board.size):
                                 cold = True
                         
                 while count1 < len(self.board.discs) - 1:
@@ -188,69 +211,83 @@ class Game(object):
                         count1 += 1
 
                 return cold
+
+        def pcollide(self):
+                ret = False
+
+                count = 1
+                #Handle pocket entry
+                discs = self.board.discs
+                while count < len(discs):
+                        disc = discs[count]
+                        if disc.getpcollide(self.board.size):
+
+                                ret = True
+                                del discs[count]
+                        count += 1
+                return ret
 		
 		
-class Client(object):
+class Client():
         def __init__(self):
                 self.size = ((800, 600))
                 pygame.init()
                 pygame.mixer.init()
-                self.holesound = pygame.mixer.Sound(u"yee.wav")
+                self.holesound = pygame.mixer.Sound("yee.wav")
                 self.game = Game()
                 self.screen = pygame.display.set_mode(self.size)
                 self.clock = pygame.time.Clock()
+                self.ang = 0
+                self.turning = False
+                self.shooting = False
+                
 
         def run(self):
                 run = True
                 while run:
-                        #Request ball movement from server
-                        if self.game.move():
-                                pass
-
-                        for event in pygame.event.get():
-                                if event.type == pygame.QUIT:
-                                        run = False
-
-			
-                        count = 0
-
-                        #Handle pocket entry
-                        discs = self.game.board.discs
-                        while count < len(discs):
-                                disc = discs[count]
-                                if disc.getpcollide():
-
-                                        self.holesound.play()
-                                        del discs[count]
-                                count += 1
-
-                        a = randint(1, 100)
-                        if 1 == a:
-                                discs[0].vel = Vector2(((random() - .5) * 999, (random() - .5) * 999))
+                        if self.tick():
+                                break
                         
-                        
-				
-                        self.draw()
-                        self.clock.tick(60)
                 pygame.quit()
                 pygame.mixer.quit()
+
 
         def draw(self):
                 self.screen.fill((255, 255, 255))
                 board = self.game.board
                 board.draw()
                 
-                pos = ((self.size[0] - board.size) / 2, (self.size[1] - board.size) / 2)
-                self.screen.blit(self.game.board.surf, pos)
-
-
+                boardrect = pygame.Rect((self.size[0] - board.size) / 2,
+                             (self.size[1] - board.size) / 2,
+                             board.size,
+                             board.size)
+                img, rect = rotCenter(board.surf, boardrect, self.ang)
                 
+                self.screen.blit(img, (rect.x, rect.y))
                 pygame.display.update()
-			
-def run():
-    client = Client()
-    client.run()
-		
-	
-		
+
+        def tick(self):
+		#Request ball movement from server
+                if not self.turning == False and not self.shooting:
+                        self.turning = not self.game.move()
+                if self.game.pcollide():
+                        self.holesound.play()
+                
+                count = 0
+                ret = False
+                for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                                ret = True
+
+        
+                self.draw()
+                self.clock.tick(60)
+                return ret
+
+
+def main():		
+        client = Client()
+        client.run()
+
+main()
 	
