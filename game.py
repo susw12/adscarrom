@@ -274,7 +274,6 @@ class Client():
                 self.size = ((800, 600))
                 pygame.init()
                 pygame.mixer.init()
-                self.holesound = pygame.mixer.Sound("yee.wav")
                 self.game = Game()
                 self.screen = pygame.display.set_mode(self.size)
                 self.clock = pygame.time.Clock()
