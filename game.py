@@ -85,6 +85,11 @@ class Board(object):
                 self.image = pygame.image.load('board.jpg')
                 self.image = pygame.transform.scale(self.image, (self.size, self.size))
 
+        def getStriker(self):
+                for disc in self.discs:
+                        if disc is Striker:
+                                return disc
+
         def draw(self):
                 
                 self.surf.blit(self.image, (0, 0))
@@ -96,7 +101,10 @@ class Disc(object):
                 self.pos = pos
                 self.vel = Vector2((0, 0))
                 self.typ = typ
-                self.r = int(13 / 500 * boardsz)
+                if typ == 'mouse':
+                        self.r = .0001
+                else:
+                        self.r = int(13 / 500 * boardsz)
                 self.mass = 5
 		
         def draw(self, boardsurf):
@@ -140,15 +148,19 @@ class Disc(object):
                         self.vel.y = 0 - self.vel.y
                         ret = True
                 return ret
+        def getDTouch(self, d):
+                rsum = self.r + d.r
+                dist = sqrt((self.pos.x - d.pos.x) ** 2 + (self.pos.y - d.pos.y) ** 2)
+                return dist < rsum
 
        
         def dcollide(self, d):
-                rsum = self.r + d.r
-                dist = sqrt((self.pos.x - d.pos.x) ** 2 + (self.pos.y - d.pos.y) ** 2)
-                if dist < rsum:
+                if self.getDTouch(d):
                         #1 self 2 d
+                        rsum = self.r + d.r
+                        dist = sqrt((self.pos.x - d.pos.x) ** 2 + (self.pos.y - d.pos.y) ** 2)
                         posdif = self.pos - d.pos
-                        unitposdif = posdif.scale(1 / posdif.mag())
+                        unitposdif = posdif.scale((rsum - dist) / posdif.mag() * 4) #Small adjustment
                         veldif = self.vel - d.vel
                         magsquare = posdif.mag() ** 2 
                         msum = self.mass + d.mass
@@ -168,16 +180,19 @@ class Disc(object):
                 
                 
         
-        def move(self):
-                self.pos.x += self.vel.x / 60 
-                self.pos.y += self.vel.y / 60
-                self.vel.x = self.vel.x * .15 **(1/60)
-                self.vel.y = self.vel.y * .15 ** (1/60)
+        def move(self, subframes):
+                self.pos.x += self.vel.x / 60/ subframes
+                self.pos.y += self.vel.y / 60 / subframes
+                self.vel.x = self.vel.x * .15 **(1/60/subframes)
+                self.vel.y = self.vel.y * .15 ** (1/60/subframes)
+
+        def flip(self, boardsz):
+                self.pos = Vector2((boardsz - self.pos.x, boardsz - self.pos.y))
 
 class Striker(Disc):
         def __init__(self, pos, typ, boardsz):
                 self.pos = pos
-                self.vel = Vector2((0, 0))
+                self.vel = Vector2((1000, 0))
                 self.typ = typ
                 self.r = int(17 /500 * boardsz)
                 self.mass = 15
@@ -191,26 +206,52 @@ class Game(object):
                 self.wscore = 0
                 self.bscore = 0
                 self.board = Board()
+                self.whosturn = 1
+                self.moving = False
+                self.shooting = True
+                self.subframes = 5 #300 per second physics frames
+
+        def flip(self):
+                for disc in self.board.discs:
+                        disc.flip(self.board.size)
+                
         def move(self):
-                cold = False
-                for disc in self.board.discs:
-                        disc.move()
+                if self.moving:
+                        for count in range(self.subframes):
+                                for disc in self.board.discs:
+                                        disc.move(self.subframes)
 
-                count1 = 0
+                                count1 = 0
+                                for disc in self.board.discs:
+                                        disc.wcollide(self.board.size)
+                                                
+                                        
+                                while count1 < len(self.board.discs) - 1:
+                                        count2 = count1 + 1
+                                        while count2 < len(self.board.discs):
+                                                self.board.discs[count1].dcollide(self.board.discs[count2])
+                                                        
+                                                count2 += 1
+
+                                        count1 += 1
+
+                                self.pcollide()
+                                self.testStop()
+
+        def testStop(self):
+                moved = False
                 for disc in self.board.discs:
-                        if disc.wcollide(self.board.size):
-                                cold = True
+                        if disc.vel.mag() > 1:
+                                moved = True
                         
-                while count1 < len(self.board.discs) - 1:
-                        count2 = count1 + 1
-                        while count2 < len(self.board.discs):
-                                if self.board.discs[count1].dcollide(self.board.discs[count2]):
-                                        cold = True
-                                count2 += 1
+                self.moving = moved
+                if not self.moving:
+                        
+                        for disc in self.board.discs:
+                                disc.vel = Vector2((0, 0))
+                        self.moving = False
+                        self.shooting = True #will receive input once the user's board turns
 
-                        count1 += 1
-
-                return cold
 
         def pcollide(self):
                 ret = False
@@ -239,7 +280,8 @@ class Client():
                 self.clock = pygame.time.Clock()
                 self.ang = 0
                 self.turning = False
-                self.shooting = False
+                self.shooting = True
+                self.dragging = False
                 
 
         def run(self):
@@ -266,13 +308,113 @@ class Client():
                 self.screen.blit(img, (rect.x, rect.y))
                 pygame.display.update()
 
+
+        def turnTick(self):
+                self.ang += 1
+                if self.ang == 180 or self.ang == 360:
+                        
+                        if self.ang == 180:
+                                self.game.flip()
+                        self.ang = 0
+
+                        self.turning = False
+                        self.shooting = True
+                        
+
+        def shootTick(self):
+                canDrag = False
+                mouse = pygame.mouse.get_pos()
+                board = self.game.board
+                mx = mouse[0]
+                my = mouse[1]
+                convx = mx - (self.size[0] - board.size) / 2
+                convy = my - (self.size[1] - board.size) / 2
+                bally = board.size * .8
+                
+                if convx > board.size * .75:
+                        ballx = board.size * .75
+                elif convx < board.size * .25:
+                        ballx = board.size * .25
+                else:
+                        ballx = convx
+                        canDrag = abs(bally - convy) < board.size * 5 / 600
+
+                board.discs[0].pos = Vector2((ballx, bally))
+                nocol = True
+                first = True
+                for disc in board.discs:
+                        
+                        if board.discs[0].getDTouch(disc) and not first:
+                                nocol = False
+
+                        first = False
+                        
+                canDrag = canDrag and nocol
+                        
+                newmx = ballx + (self.size[0] - board.size) / 2
+                newmy = bally + (self.size[1] - board.size) / 2
+                #pygame.mouse.set_pos((newmx, newmy))
+                
+                if pygame.mouse.get_pressed()[0] and canDrag:
+                        self.dragging = True
+
+        def dragTick(self):
+                mouse = pygame.mouse.get_pos()
+                board = self.game.board
+                striker = board.discs[0]
+                convstrx = striker.pos.x + (self.size[0] - board.size) / 2
+                convstry = striker.pos.y + (self.size[1] - board.size) / 2
+                mx = mouse[0]
+                my = mouse[1]
+                convx = mx - (self.size[0] - board.size) / 2
+                convy = my - (self.size[1] - board.size) / 2
+                mousedisc = Disc(Vector2((convx, convy)), 'mouse', board.size)
+                if pygame.mouse.get_pressed()[0]:
+                        #won't work
+                        pygame.draw.line(self.screen,
+                                         (0,0,0),
+                                         (mx, my),
+                                         (convstrx, convstry),
+                                         5)
+                #Add once shot
+                else:
+                        if not striker.getDTouch(mousedisc):
+                                xdist = striker.pos.x - mousedisc.pos.x
+                                ydist = striker.pos.y - mousedisc.pos.y
+                                striker.vel = Vector2((xdist, ydist)).scale(10)
+                                self.shooting = False
+                                self.game.moving = True
+                                self.game.shooting = False
+                        self.dragging = False
+        
         def tick(self):
 		#Request ball movement from server
-                if not self.turning == False and not self.shooting:
-                        self.turning = not self.game.move()
-                if self.game.pcollide():
-                        self.holesound.play()
+
+                #Move
+                if self.game.moving:
+                        self.game.move()
+
+                #Turn
+                elif self.turning:
+                        self.turnTick()
+
+                #Shoot tick
+                                
+                elif self.dragging:
+                        self.dragTick()
+                                        
+                                
                 
+
+                        
+                elif self.shooting:
+                        self.shootTick()
+                                
+                else:
+                        self.turning = True
+                
+
+                        
                 count = 0
                 ret = False
                 for event in pygame.event.get():
