@@ -63,22 +63,14 @@
 	<div class = "errmssg" id = "suemailinvalid">•Invalid e-mail adress</div>
 	<div class = "errmssg" id = "suemailtaken">•E-mail already in use</div>
 	
-	<label><b>Username</b></label>
-	<input type="text" placeholder="Enter Username" name="uname">
-	
-	<div class = "errmssg" id = "suunamelen">•Invalid length- must be length [5,20]</div>
-	<div class = "errmssg" id = "suunamechar">•Invalid char- must only be numbers and letters (not to be confused with numbersandnumbers, daniel zhu's aops profile</div>
-	<div class = "errmssg" id = "suunametaken">•Username already taken</div>
-	
-	<label><b>Password</b></label>
-	<input type="password" placeholder="Enter Password" name="psw">
+	<label><b>Pin</b></label>
+	<input type="password" placeholder="Enter Pin" name="psw">
 	
 	<div class = "errmssg" id = "supswlen">•Invalid length- must be length [6,30]</div>
-	<div class = "errmssg" id = "supswchar">•Invalid char- must only be numbers and letters and special chars</div>
 	
-	<label><b>Reenter Password</b></label>
-	<input type="password" placeholder="Renter Password" name="repsw">
-	<div class = "errmssg" id = "surepswmatch">•Passwords must match</div>
+	<label><b>Reenter Pin</b></label>
+	<input type="password" placeholder="Renter Pin" name="repsw">
+	<div class = "errmssg" id = "surepswmatch">•Pin must match</div>
 		
 	<button type="submit" onclick='return checkSignUp();'>Sign Up</button>
 	<input type="checkbox" checked="checked"> Remember me
@@ -99,8 +91,8 @@
 <form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
 
 	<div class="container">
-	<label><b>Username</b></label>
-	<input type="text" placeholder="Enter Username" name="liuname" id="loginuser">
+	<label><b>Email</b></label>
+	<input type="text" placeholder="Enter Email" name="liuname" id="loginuser">
 
 	<label><b>Password</b></label>
 	<input type="password" placeholder="Enter Password" name="lipsw" id="loginpswd">
