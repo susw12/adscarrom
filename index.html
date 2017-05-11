@@ -30,7 +30,7 @@
 <br>
 <br>
 <br>
-<a>Install Beta Version here: <a href="https://github.com/susw12/adscarrom/releases/tag/4.0">BETA VERSION</a></a>
+<a>Install Beta Version here: BETA VERSION<br><strong>THIS LINK HAS BEEN DEACIVATED.</strong></a></a>
 
 </td>
 <td width = "40%">
@@ -49,8 +49,7 @@
 <br>
 
 <center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';">Sign Up</button>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button class="login" onclick="document.getElementById('lidiv').style.display='block';">Login</button></center>
 
 <div id="sudiv" name ="sudiv" class="modal">
@@ -81,11 +80,6 @@
 	</div>
 </form>
 </div>
-<!--WTF IS THIS? <center><button class="login" onclick="document.getElementById('lidiv').style.difunction newPopup(url) {
-	popupWindow = window.open(
-		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-}
-</script>splay='block';" style="width:auto;">Login</button></center>-->
 
 <div id="lidiv" name = "lidiv" class="modal">
 <form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
@@ -94,18 +88,14 @@
 	<label><b>Email</b></label>
 	<input type="text" placeholder="Enter Email" name="liuname" id="loginuser">
 
-	<label><b>Password</b></label>
-	<input type="password" placeholder="Enter Password" name="lipsw" id="loginpswd">
+	<label><b>Pin</b></label>
+	<input type="password" placeholder="Enter Pin" name="lipsw" id="loginpswd">
 	
-	<div class = "errmssg" id = "lipswinc">•Incorrect password</div>
-	
-	<button type="submit" onclick = 'return checkLogIn();'>Login</button>
-	<input type="checkbox" checked="checked"> Remember me
+	<div class = "errmssg" id = "lipswinc">•Incorrect Pin</div>
 	</div>
 
 	<div class="container" style="background-color:#f1f1f1">
 	<button type="button" onclick="document.getElementById('lidiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-	<span class="psw">Forgot <a href="#">password?</a></span>
 	</div>
 </form>
 </div>

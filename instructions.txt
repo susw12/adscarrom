@@ -1,0 +1,7 @@
+To position the striker (the big white ball), move your mouse to the right or
+left. To shoot, put your mouse in the center of the striker and drag in the
+opposite direction of where you want to shoot. If you want to reposition the
+striker while you are dragging, move the mouse back onto the striker and let go.
+This is currently only a physics demonstration, so there are no rules. Try to
+do some trick shots! If you catch any glitches in the physics, please tell us
+at danielmonroe0606@gmail.com, sujaymswain@gmail.com or meiaaron99@gmail.com.
