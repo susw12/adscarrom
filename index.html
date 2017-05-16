@@ -1,13 +1,10 @@
-
 <html>
 <head>
 <title>ADS Carrom! The World's Premier Site for Playing Carrom Online!</title>
-<script src="https://rawgit.com/susw12/adscarrom/master/two.js"></script>
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/susw12/adscarrom/master/StyleSheet.css">
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="shortcut icon" href="icon.ico">
-<script src="https://rawgit.com/susw12/adscarrom/master/game.js"></script>
 </head>
 <body>
 
@@ -26,11 +23,11 @@
 
 <b><p style = "font-size: 25pt">Recent updates:</p></b>
 
-<a>3/19/2017:</a>
+<a>3/6/2017:</a>
 <br>
 <br>
 <br>
-<a>Install Beta Version here: BETA VERSION<br><strong>THIS LINK HAS BEEN DEACIVATED.</strong></a></a>
+<a>-Game will be finished by 3/14/2017</a>
 
 </td>
 <td width = "40%">
@@ -48,61 +45,35 @@
 <br>
 <br>
 
-<center><button class = "signup" onclick="document.getElementById('sudiv').style.display='block';">Sign Up</button>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<center><button class = "signup" onclick = "sign_up();">Sign Up</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button class="login" onclick="document.getElementById('lidiv').style.display='block';">Login</button></center>
 
-<div id="sudiv" name ="sudiv" class="modal">
-<form id="suform" name = "suform" class="modal-content animate">
-
-	<div class="container">
-	
-	<label><b>Email</b></label>
-	<input type="text" placeholder="Enter E-mail" name="email">
-	<div class = "errmssg" id = "suemailinvalid">•Invalid e-mail adress</div>
-	<div class = "errmssg" id = "suemailtaken">•E-mail already in use</div>
-	
-	<label><b>Pin</b></label>
-	<input type="password" placeholder="Enter Pin" name="psw">
-	
-	<div class = "errmssg" id = "supswlen">•Invalid length- must be length [6,30]</div>
-	
-	<label><b>Reenter Pin</b></label>
-	<input type="password" placeholder="Renter Pin" name="repsw">
-	<div class = "errmssg" id = "surepswmatch">•Pin must match</div>
-		
-	<button type="submit" onclick='return checkSignUp();'>Sign Up</button>
-	<input type="checkbox" checked="checked"> Remember me
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-	<button type="button" onclick="document.getElementById('sudiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-	</div>
-</form>
-</div>
 
 <div id="lidiv" name = "lidiv" class="modal">
-<form id="liform" name = "liform" class="modal-content animate" action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
+<form id="liform" name = "liform" class="modal-content animate" action="receive.html">
 
-	<div class="container">
-	<label><b>Email</b></label>
-	<input type="text" placeholder="Enter Email" name="liuname" id="loginuser">
+  <div class="container">
+  <label><b>Username</b></label>
+  <input type="text" placeholder="Enter Username" name="liuname" id="loginuser">
 
-	<label><b>Pin</b></label>
-	<input type="password" placeholder="Enter Pin" name="lipsw" id="loginpswd">
-	
-	<div class = "errmssg" id = "lipswinc">•Incorrect Pin</div>
-	</div>
+  <label><b>Password</b></label>
+  <input type="password" placeholder="Enter Password" name="lipsw" id="loginpswd">
+  
+  <div class = "errmssg" id = "lipswinc">•Incorrect password</div>
+  
+  <button onclick = 'checkLogIn()'>Login</button>
+  <input type="checkbox" checked="checked"> Remember me
+  </div>
 
-	<div class="container" style="background-color:#f1f1f1">
-	<button type="button" onclick="document.getElementById('lidiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
-	</div>
+  <div class="container" style="background-color:#f1f1f1">
+  <button type="button" onclick="document.getElementById('lidiv').style.display='none'; clearErrs();" class="cancelbtn">Cancel</button>
+  <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
 </form>
 </div>
 
-<br>
-<br>
-<center><a href="lobby.html">Continue as guest >>> </a></center>
 </td>
 </tr>
 <tr>
@@ -114,52 +85,374 @@
 
 </table>
 <script>
-$.ajax({
-  url: 'csv_data.csv',
-  dataType: 'text',
-}).done(successFunction);
+/*
+*  Secure Hash Algorithm (SHA512)
+*  http://www.happycode.info/
+*/
 
-function successFunction(data) {
-  var allRows = data.split(/\r?\n|\r/);
-  var table = '<table>';
-  for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
-    if (singleRow === 0) {
-      table += '<thead>';
-      table += '<tr>';
-    } else {
-      table += '<tr>';
+var psw = ["15700847528247511501940","13312410031407581370773","5658050414709355063506","93933258364457361179595","83251470999776701424750","410487143514298012541","34308653379172053351312","54230656002015788881018","68199702664397289263552","10006416055842537943386","9713187552178832515333","29725792355154853747692","57375966679753592640117","51868079827507656057028","45552802008627409869426","56516423937989907650382","49394015712237065319961","46317613663593572074424","16292006159184505680685","71936554836006968842914","84714994903424822724442","51550993272193613719166","51476679810278721111978","75138640969739508120343","47948588844175384755727","27328912707182175280017","51005968074311603575076","20327785954061106497031","76839059612978119022692","86058590782349645249114","31430216251608525171165","47138572245114506586133","67666981407200580851076","15191633040136839690940","50170963442469020542599","22918874894396714127121","37966509245782606054867","14907266467066244437370","90230605735308022096546","19967448734957579864342","29559083946929839425547","50524218652265309818292","63114003833469094778938","43434218937031481229025","79384982134345161294768","47827574023320213746615","63620738597071991091351","57074367877668130551491","52131714439646051981803","38400075465701148390996"]
+
+
+function SHA512(str) {
+  function int64(msint_32, lsint_32) {
+    this.highOrder = msint_32;
+    this.lowOrder = lsint_32;
+  }
+
+  var H = [new int64(0x6a09e667, 0xf3bcc908), new int64(0xbb67ae85, 0x84caa73b),
+      new int64(0x3c6ef372, 0xfe94f82b), new int64(0xa54ff53a, 0x5f1d36f1),
+      new int64(0x510e527f, 0xade682d1), new int64(0x9b05688c, 0x2b3e6c1f),
+      new int64(0x1f83d9ab, 0xfb41bd6b), new int64(0x5be0cd19, 0x137e2179)];
+
+  var K = [new int64(0x428a2f98, 0xd728ae22), new int64(0x71374491, 0x23ef65cd),
+      new int64(0xb5c0fbcf, 0xec4d3b2f), new int64(0xe9b5dba5, 0x8189dbbc),
+      new int64(0x3956c25b, 0xf348b538), new int64(0x59f111f1, 0xb605d019),
+      new int64(0x923f82a4, 0xaf194f9b), new int64(0xab1c5ed5, 0xda6d8118),
+      new int64(0xd807aa98, 0xa3030242), new int64(0x12835b01, 0x45706fbe),
+      new int64(0x243185be, 0x4ee4b28c), new int64(0x550c7dc3, 0xd5ffb4e2),
+      new int64(0x72be5d74, 0xf27b896f), new int64(0x80deb1fe, 0x3b1696b1),
+      new int64(0x9bdc06a7, 0x25c71235), new int64(0xc19bf174, 0xcf692694),
+      new int64(0xe49b69c1, 0x9ef14ad2), new int64(0xefbe4786, 0x384f25e3),
+      new int64(0x0fc19dc6, 0x8b8cd5b5), new int64(0x240ca1cc, 0x77ac9c65),
+      new int64(0x2de92c6f, 0x592b0275), new int64(0x4a7484aa, 0x6ea6e483),
+      new int64(0x5cb0a9dc, 0xbd41fbd4), new int64(0x76f988da, 0x831153b5),
+      new int64(0x983e5152, 0xee66dfab), new int64(0xa831c66d, 0x2db43210),
+      new int64(0xb00327c8, 0x98fb213f), new int64(0xbf597fc7, 0xbeef0ee4),
+      new int64(0xc6e00bf3, 0x3da88fc2), new int64(0xd5a79147, 0x930aa725),
+      new int64(0x06ca6351, 0xe003826f), new int64(0x14292967, 0x0a0e6e70),
+      new int64(0x27b70a85, 0x46d22ffc), new int64(0x2e1b2138, 0x5c26c926),
+      new int64(0x4d2c6dfc, 0x5ac42aed), new int64(0x53380d13, 0x9d95b3df),
+      new int64(0x650a7354, 0x8baf63de), new int64(0x766a0abb, 0x3c77b2a8),
+      new int64(0x81c2c92e, 0x47edaee6), new int64(0x92722c85, 0x1482353b),
+      new int64(0xa2bfe8a1, 0x4cf10364), new int64(0xa81a664b, 0xbc423001),
+      new int64(0xc24b8b70, 0xd0f89791), new int64(0xc76c51a3, 0x0654be30),
+      new int64(0xd192e819, 0xd6ef5218), new int64(0xd6990624, 0x5565a910),
+      new int64(0xf40e3585, 0x5771202a), new int64(0x106aa070, 0x32bbd1b8),
+      new int64(0x19a4c116, 0xb8d2d0c8), new int64(0x1e376c08, 0x5141ab53),
+      new int64(0x2748774c, 0xdf8eeb99), new int64(0x34b0bcb5, 0xe19b48a8),
+      new int64(0x391c0cb3, 0xc5c95a63), new int64(0x4ed8aa4a, 0xe3418acb),
+      new int64(0x5b9cca4f, 0x7763e373), new int64(0x682e6ff3, 0xd6b2b8a3),
+      new int64(0x748f82ee, 0x5defb2fc), new int64(0x78a5636f, 0x43172f60),
+      new int64(0x84c87814, 0xa1f0ab72), new int64(0x8cc70208, 0x1a6439ec),
+      new int64(0x90befffa, 0x23631e28), new int64(0xa4506ceb, 0xde82bde9),
+      new int64(0xbef9a3f7, 0xb2c67915), new int64(0xc67178f2, 0xe372532b),
+      new int64(0xca273ece, 0xea26619c), new int64(0xd186b8c7, 0x21c0c207),
+      new int64(0xeada7dd6, 0xcde0eb1e), new int64(0xf57d4f7f, 0xee6ed178),
+      new int64(0x06f067aa, 0x72176fba), new int64(0x0a637dc5, 0xa2c898a6),
+      new int64(0x113f9804, 0xbef90dae), new int64(0x1b710b35, 0x131c471b),
+      new int64(0x28db77f5, 0x23047d84), new int64(0x32caab7b, 0x40c72493),
+      new int64(0x3c9ebe0a, 0x15c9bebc), new int64(0x431d67c4, 0x9c100d4c),
+      new int64(0x4cc5d4be, 0xcb3e42b6), new int64(0x597f299c, 0xfc657e2a),
+      new int64(0x5fcb6fab, 0x3ad6faec), new int64(0x6c44198c, 0x4a475817)];
+
+  var W = new Array(64);
+  var a, b, c, d, e, f, g, h, i, j;
+  var T1, T2;
+  var charsize = 8;
+
+  function utf8_encode(str) {
+    return unescape(encodeURIComponent(str));
+  }
+
+  function str2binb(str) {
+    var bin = [];
+    var mask = (1 << charsize) - 1;
+    var len = str.length * charsize;
+
+    for (var i = 0; i < len; i += charsize) {
+      bin[i >> 5] |= (str.charCodeAt(i / charsize) & mask) << (32 - charsize - (i % 32));
     }
-    var rowCells = allRows[singleRow].split(',');
-    for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
-      if (singleRow === 0) {
-        table += '<th>';
-        table += rowCells[rowCell];
-        table += '</th>';
+
+    return bin;
+  }
+
+  function binb2hex(binarray) {
+    var hex_tab = "0123456789abcdef";
+    var str = "";
+    var length = binarray.length * 4;
+    var srcByte;
+
+    for (var i = 0; i < length; i += 1) {
+      srcByte = binarray[i >> 2] >> ((3 - (i % 4)) * 8);
+      str += hex_tab.charAt((srcByte >> 4) & 0xF) + hex_tab.charAt(srcByte & 0xF);
+    }
+
+    return str;
+  }
+
+  function safe_add_2(x, y) {
+    var lsw, msw, lowOrder, highOrder;
+
+    lsw = (x.lowOrder & 0xFFFF) + (y.lowOrder & 0xFFFF);
+    msw = (x.lowOrder >>> 16) + (y.lowOrder >>> 16) + (lsw >>> 16);
+    lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    lsw = (x.highOrder & 0xFFFF) + (y.highOrder & 0xFFFF) + (msw >>> 16);
+    msw = (x.highOrder >>> 16) + (y.highOrder >>> 16) + (lsw >>> 16);
+    highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    return new int64(highOrder, lowOrder);
+  }
+
+  function safe_add_4(a, b, c, d) {
+    var lsw, msw, lowOrder, highOrder;
+
+    lsw = (a.lowOrder & 0xFFFF) + (b.lowOrder & 0xFFFF) + (c.lowOrder & 0xFFFF) + (d.lowOrder & 0xFFFF);
+    msw = (a.lowOrder >>> 16) + (b.lowOrder >>> 16) + (c.lowOrder >>> 16) + (d.lowOrder >>> 16) + (lsw >>> 16);
+    lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    lsw = (a.highOrder & 0xFFFF) + (b.highOrder & 0xFFFF) + (c.highOrder & 0xFFFF) + (d.highOrder & 0xFFFF) + (msw >>> 16);
+    msw = (a.highOrder >>> 16) + (b.highOrder >>> 16) + (c.highOrder >>> 16) + (d.highOrder >>> 16) + (lsw >>> 16);
+    highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    return new int64(highOrder, lowOrder);
+  }
+
+  function safe_add_5(a, b, c, d, e) {
+    var lsw, msw, lowOrder, highOrder;
+
+    lsw = (a.lowOrder & 0xFFFF) + (b.lowOrder & 0xFFFF) + (c.lowOrder & 0xFFFF) + (d.lowOrder & 0xFFFF) + (e.lowOrder & 0xFFFF);
+    msw = (a.lowOrder >>> 16) + (b.lowOrder >>> 16) + (c.lowOrder >>> 16) + (d.lowOrder >>> 16) + (e.lowOrder >>> 16) + (lsw >>> 16);
+    lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    lsw = (a.highOrder & 0xFFFF) + (b.highOrder & 0xFFFF) + (c.highOrder & 0xFFFF) + (d.highOrder & 0xFFFF) + (e.highOrder & 0xFFFF) + (msw >>> 16);
+    msw = (a.highOrder >>> 16) + (b.highOrder >>> 16) + (c.highOrder >>> 16) + (d.highOrder >>> 16) + (e.highOrder >>> 16) + (lsw >>> 16);
+    highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+    return new int64(highOrder, lowOrder);
+  }
+
+  function maj(x, y, z) {
+    return new int64(
+      (x.highOrder & y.highOrder) ^ (x.highOrder & z.highOrder) ^ (y.highOrder & z.highOrder),
+      (x.lowOrder & y.lowOrder) ^ (x.lowOrder & z.lowOrder) ^ (y.lowOrder & z.lowOrder)
+    );
+  }
+
+  function ch(x, y, z) {
+    return new int64(
+      (x.highOrder & y.highOrder) ^ (~x.highOrder & z.highOrder),
+      (x.lowOrder & y.lowOrder) ^ (~x.lowOrder & z.lowOrder)
+    );
+  }
+
+  function rotr(x, n) {
+    if (n <= 32) {
+      return new int64(
+       (x.highOrder >>> n) | (x.lowOrder << (32 - n)),
+       (x.lowOrder >>> n) | (x.highOrder << (32 - n))
+      );
+    } else {
+      return new int64(
+       (x.lowOrder >>> n) | (x.highOrder << (32 - n)),
+       (x.highOrder >>> n) | (x.lowOrder << (32 - n))
+      );
+    }
+  }
+
+  function sigma0(x) {
+    var rotr28 = rotr(x, 28);
+    var rotr34 = rotr(x, 34);
+    var rotr39 = rotr(x, 39);
+
+    return new int64(
+      rotr28.highOrder ^ rotr34.highOrder ^ rotr39.highOrder,
+      rotr28.lowOrder ^ rotr34.lowOrder ^ rotr39.lowOrder
+    );
+  }
+
+  function sigma1(x) {
+    var rotr14 = rotr(x, 14);
+    var rotr18 = rotr(x, 18);
+    var rotr41 = rotr(x, 41);
+
+    return new int64(
+      rotr14.highOrder ^ rotr18.highOrder ^ rotr41.highOrder,
+      rotr14.lowOrder ^ rotr18.lowOrder ^ rotr41.lowOrder
+    );
+  }
+
+  function gamma0(x) {
+    var rotr1 = rotr(x, 1), rotr8 = rotr(x, 8), shr7 = shr(x, 7);
+
+    return new int64(
+      rotr1.highOrder ^ rotr8.highOrder ^ shr7.highOrder,
+      rotr1.lowOrder ^ rotr8.lowOrder ^ shr7.lowOrder
+    );
+  }
+
+  function gamma1(x) {
+    var rotr19 = rotr(x, 19);
+    var rotr61 = rotr(x, 61);
+    var shr6 = shr(x, 6);
+
+    return new int64(
+      rotr19.highOrder ^ rotr61.highOrder ^ shr6.highOrder,
+      rotr19.lowOrder ^ rotr61.lowOrder ^ shr6.lowOrder
+    );
+  }
+
+  function shr(x, n) {
+    if (n <= 32) {
+      return new int64(
+       x.highOrder >>> n,
+       x.lowOrder >>> n | (x.highOrder << (32 - n))
+      );
+    } else {
+      return new int64(
+       0,
+       x.highOrder << (32 - n)
+      );
+    }
+  }
+
+  str = utf8_encode(str);
+  strlen = str.length*charsize;
+  str = str2binb(str);
+
+  str[strlen >> 5] |= 0x80 << (24 - strlen % 32);
+  str[(((strlen + 128) >> 10) << 5) + 31] = strlen;
+
+  for (var i = 0; i < str.length; i += 32) {
+    a = H[0];
+    b = H[1];
+    c = H[2];
+    d = H[3];
+    e = H[4];
+    f = H[5];
+    g = H[6];
+    h = H[7];
+
+    for (var j = 0; j < 80; j++) {
+      if (j < 16) {
+       W[j] = new int64(str[j*2 + i], str[j*2 + i + 1]);
       } else {
-        table += '<td>';
-        table += rowCells[rowCell];
-        table += '</td>';
+       W[j] = safe_add_4(gamma1(W[j - 2]), W[j - 7], gamma0(W[j - 15]), W[j - 16]);
       }
-    }
-    if (singleRow === 0) {
-      table += '</tr>';
-      table += '</thead>';
-      table += '<tbody>';
-    } else {
-      table += '</tr>';
-    }
-  } 
-  table += '</tbody>';
-  table += '</table>';
-  $('body').append(table);
-}
-</script>-->
-<script>
-function newPopup(url) {
-	popupWindow = window.open(
-		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no')
-}
-</script>
-</body>
 
-</html>
+      T1 = safe_add_5(h, sigma1(e), ch(e, f, g), K[j], W[j]);
+      T2 = safe_add_2(sigma0(a), maj(a, b, c));
+      h = g;
+      g = f;
+      f = e;
+      e = safe_add_2(d, T1);
+      d = c;
+      c = b;
+      b = a;
+      a = safe_add_2(T1, T2);
+    }
+
+    H[0] = safe_add_2(a, H[0]);
+    H[1] = safe_add_2(b, H[1]);
+    H[2] = safe_add_2(c, H[2]);
+    H[3] = safe_add_2(d, H[3]);
+    H[4] = safe_add_2(e, H[4]);
+    H[5] = safe_add_2(f, H[5]);
+    H[6] = safe_add_2(g, H[6]);
+    H[7] = safe_add_2(h, H[7]);
+  }
+
+  var binarray = [];
+  for (var i = 0; i < H.length; i++) {
+    binarray.push(H[i].highOrder);
+    binarray.push(H[i].lowOrder);
+  }
+  return binb2hex(binarray);
+}
+
+function clearErrs() {
+ var errs = document.getElementsByClassName("errmssg");
+ for (err in errs) {
+  errs[err].style.display = 'none';
+  
+ } 
+}
+
+
+function checkEmail(email) {
+  var emailre = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var errors = [];
+  if (! emailre.test(email)) {
+   errors.push('emailinvalid');
+ }
+ 
+ return errors;
+}
+function checkPsw(psw) {
+ var pswre = /^[a-zA-Z0-9!@#$%^&*()+=_-]+$/;
+ var errors = [];
+ if (psw.length > 30 || psw.length < 6) {
+  errors.push('pswlen');
+  }
+ if ((! pswre.test(psw)) && (psw.length > 0)) {
+  errors.push('pswchar');
+ }
+ 
+ return errors;
+}
+function checkUname(uname) {
+ var unamere = /^[a-zA-Z0-9]+$/;
+ var errors = [];
+ if (uname.length > 20 || uname.length < 5) {
+  errors.push('unamelen');
+ }
+ 
+ 
+  if ((! unamere.test(uname)) && (uname.length > 0)) {
+   errors.push('unamechar');
+ }
+ 
+  return errors;
+}
+
+function checkSignUp() {
+ var errors = [];
+ var allErrors = ['unamelen', 'unamechar', 'pswlen', 'pswchar', 'repswmatch', 'emailinvalid', 'emailtaken', 'unametaken'];
+ var email = document.suform.email.value;
+ var uname = document.suform.uname.value;
+ var psw = document.suform.psw.value;
+ var repsw = document.suform.repsw.value;
+ 
+ errors = errors.concat(checkUname(uname));
+ errors = errors.concat(checkPsw(psw));
+ errors = errors.concat(checkEmail(email));
+
+ 
+  / repsw test /
+ if (psw != repsw) {
+   errors.push('repswmatch');
+  }
+ 
+ / show and hide /
+ for (var count in allErrors) {
+   document.getElementById('su' + allErrors[count]).style.display = 'none';
+ }
+ 
+ for (count in errors) {
+  document.getElementById('su' + errors[count]).style.display = 'block';
+ }
+ 
+ / cancel if errors /
+ if (errors.length > 0) {
+   return false;
+ }
+ 
+ return true; 
+}
+
+function checkLogIn() {
+	var username = document.liform.liuname.value;
+	var password = document.liform.lipsw.value;
+	document.liform.liuname.value = SHA512(username);
+	document.liform.lipsw.value = SHA512(password);
+	document.getElementById("liform").submit();
+
+}
+ 
+function sign_up() {
+	var usernum = Math.floor((Math.random() * 50) + 1);
+	window.alert("Your Username is: user" + usernum + "\nPassword is: " + psw[usernum - 1]);
+}
+ 
+ 
+ </script>
