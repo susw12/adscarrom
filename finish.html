@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Thank you</title>
+</head>
+
+
+<body>
+
+<h1>Thank you! Download has been successful!</h1> 
+<br>
+<form name = "finish" >
+Your code is: <input type = "text" id = "code1" name = "code" value = "">
+<br>
+Please go to: <input type = "text" id = "link1" name = "link1" value = "">
+
+</form>
+
+<script language = "Javascript">
+var links1 = ["https://drive.google.com/file/d/0B54eqaGmPeudR3o5UHRHZ3l0RWc/view?usp=sharing", 
+"https://drive.google.com/open?id=0B54eqaGmPeudb3FLcDk0Rk9EaVE", 
+"https://drive.google.com/file/d/0B54eqaGmPeudQTItUHlOa3JnQUU/view?usp=sharing", 
+"https://drive.google.com/file/d/0B54eqaGmPeudaXVWT3FQWmlXakk/view?usp=sharing",
+"https://drive.google.com/file/d/0B54eqaGmPeudSk05cEZPU0dhbW8/view?usp=sharing",
+"https://drive.google.com/open?id=0B54eqaGmPeudRi01U2JLWjJLOXc",
+"https://drive.google.com/open?id=0B54eqaGmPeudUm9UMEp4bWV6UFU",
+"https://drive.google.com/file/d/0B54eqaGmPeudZ1VhWV9VTmdGV28/view?usp=sharing",
+"https://drive.google.com/file/d/0B54eqaGmPeudRVF3UFZ5RnpJUUU/view?usp=sharing",
+"https://drive.google.com/open?id=0B54eqaGmPeudeWQ4a0VoNDk1bUk",
+"https://drive.google.com/open?id=0B54eqaGmPeudQXdiY1dOWThzSnc",
+"https://drive.google.com/open?id=0B54eqaGmPeudcjduMWFoMko5a2M",
+"https://drive.google.com/open?id=0B54eqaGmPeudWFM5dUVlU3lSZ00",
+"https://drive.google.com/open?id=0B54eqaGmPeudbFZaejJGQTBDbkk",
+"https://drive.google.com/open?id=0B54eqaGmPeudT0xWOTVCZ09ZUFk",
+"https://drive.google.com/file/d/0B54eqaGmPeudZ3lINHNpQlpaaXc/view?usp=sharing",
+"https://drive.google.com/open?id=0B54eqaGmPeudYXB3WlZXNldYRm8",
+"https://drive.google.com/open?id=0B54eqaGmPeudZE1USEF3LUE0T00",
+"https://drive.google.com/open?id=0B54eqaGmPeudVkotZG9tUlpPbGs",
+"https://drive.google.com/open?id=0B54eqaGmPeudR21NR3lsNWpzd3c",
+"https://drive.google.com/open?id=0B54eqaGmPeudc3hQT1hjalh5bkE",
+"https://drive.google.com/open?id=0B54eqaGmPeudTmZaNVBKTTE3Y1E",
+"https://drive.google.com/open?id=0B54eqaGmPeudTGRvRFBsaWwwR1E",
+"https://drive.google.com/open?id=0B54eqaGmPeudb2NIMVFrVkZLMFU",]
+
+var text = window.location.href;
+
+function get_code(strI) {
+	theleft = strI.indexOf('=') + 1;
+	theright = strI.lastIndexOf("&");
+	return(strI.substring(theleft, theright));
+}
+
+function get_index(strI) {
+	point = strI.lastIndexOf("=");
+	return(strI.substring(point+1,strI.length));
+}
+
+var usercode = String(get_code(text));
+var userindex = get_index(text);
+var userlink = links1[userindex];
+
+document.getElementById("code1").value = usercode;
+document.getElementById("link1").value = userlink;
+
+</script>
+
+
+</body>
+</html>
