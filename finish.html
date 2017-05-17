@@ -56,7 +56,7 @@ function get_index(strI) {
 
 var usercode = String(get_code(text));
 var userindex = get_index(text);
-var userlink = links1[userindex];
+var userlink = links1[userindex - 1];
 
 document.getElementById("code1").value = usercode;
 document.getElementById("link1").value = userlink;
