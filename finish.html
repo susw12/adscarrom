@@ -32,14 +32,7 @@ var links1 = ["https://drive.google.com/file/d/0B54eqaGmPeudR3o5UHRHZ3l0RWc/view
 "https://drive.google.com/open?id=0B54eqaGmPeudbFZaejJGQTBDbkk",
 "https://drive.google.com/open?id=0B54eqaGmPeudT0xWOTVCZ09ZUFk",
 "https://drive.google.com/file/d/0B54eqaGmPeudZ3lINHNpQlpaaXc/view?usp=sharing",
-"https://drive.google.com/open?id=0B54eqaGmPeudYXB3WlZXNldYRm8",
-"https://drive.google.com/open?id=0B54eqaGmPeudZE1USEF3LUE0T00",
-"https://drive.google.com/open?id=0B54eqaGmPeudVkotZG9tUlpPbGs",
-"https://drive.google.com/open?id=0B54eqaGmPeudR21NR3lsNWpzd3c",
-"https://drive.google.com/open?id=0B54eqaGmPeudc3hQT1hjalh5bkE",
-"https://drive.google.com/open?id=0B54eqaGmPeudTmZaNVBKTTE3Y1E",
-"https://drive.google.com/open?id=0B54eqaGmPeudTGRvRFBsaWwwR1E",
-"https://drive.google.com/open?id=0B54eqaGmPeudb2NIMVFrVkZLMFU",]
+"https://drive.google.com/open?id=0B54eqaGmPeudYXB3WlZXNldYRm8"]
 
 var text = window.location.href;
 
@@ -56,7 +49,7 @@ function get_index(strI) {
 
 var usercode = String(get_code(text));
 var userindex = get_index(text);
-var userlink = links1[userindex - 1];
+var userlink = links1[userindex];
 
 document.getElementById("code1").value = usercode;
 document.getElementById("link1").value = userlink;
